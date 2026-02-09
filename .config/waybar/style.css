@@ -1,0 +1,207 @@
+
+
+
+@define-color bar-bg rgba(16, 20, 25, 0.92);
+@define-color bar-bg-2 rgba(24, 28, 34, 0.92);
+
+@define-color main-bg #101419;
+@define-color main-fg #cfe9f5;
+
+@define-color module-bg #151a20;
+@define-color module-bg-hover #1b2129;
+@define-color module-border rgba(255, 255, 255, 0.06);
+
+@define-color wb-act-bg #93cee9;
+@define-color wb-act-fg #1f2328;
+
+@define-color wb-hvr-bg #93cee9;
+@define-color wb-hvr-fg #1f2328;
+
+/************ GLOBAL STYLES ************/
+* {
+    border: none;
+    border-radius: 0px;
+    font-family: "JetBrainsMono Nerd Font", "JetBrainsMono Nerd Font";
+    font-weight: bold;
+    font-size: 10px;
+    min-height: 10px;
+}
+
+window#waybar {
+    background: linear-gradient(90deg, @bar-bg, @bar-bg-2);
+    border-bottom: 1px solid @module-border;
+}
+
+tooltip {
+    background: @main-bg;
+    color: white;
+    border-radius: 7px;
+    border-width: 0px;
+}
+
+/************ WORKSPACES ************/
+#workspaces,
+#taskbar {
+}
+
+#workspaces button {
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 8px;
+    margin: 2px 0;
+    color: white;
+    animation: ws_normal 20s ease-in-out 1;
+}
+
+#workspaces button.active {
+    background: @wb-act-bg;
+    color: @wb-act-fg;
+    margin: 2px;
+    animation: ws_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#workspaces button:hover {
+    background: @wb-hvr-bg;
+    color: @wb-hvr-fg;
+    animation: ws_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+/************ TASKBAR ************/
+#taskbar button {
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 8px;
+    margin: 2px 0;
+    color: @wb-color;
+    animation: tb_normal 20s ease-in-out 1;
+}
+
+#taskbar button.active {
+    background: @wb-act-bg;
+    color: @wb-act-color;
+    margin: 2px;
+    animation: tb_active 20s ease-in-out 1;
+    transition: all 0.4s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+#taskbar button:hover {
+    background: @wb-hvr-bg;
+    color: @wb-hvr-color;
+    animation: tb_hover 20s ease-in-out 1;
+    transition: all 0.3s cubic-bezier(.55, -0.68, .48, 1.682);
+}
+
+/************ TRAY ************/
+#tray menu * {
+    min-height: 16px;
+}
+
+#tray menu separator {
+    min-height: 10px;
+}
+
+/************ MODULE DEFAULT STYLES ************/
+#power-profiles-daemon,
+#custom-wakawatch,
+#custom-bluetooth,
+#custom-wakatime,
+#custom-mutebattery,
+#disk,
+#backlight,
+#battery,
+#bluetooth,
+#clock,
+#cpu,
+#custom-cava,
+#custom-clipboard,
+#custom-cpuinfo,
+#custom-display,
+#custom-github_hyde,
+#custom-gpuinfo,
+#custom-hyprsunset,
+#idle_inhibitor,
+#custom-keybindhint,
+#language,
+#memory,
+#mpris,
+#network,
+#custom-notifications,
+#custom-power,
+#privacy,
+#pulseaudio,
+#custom-sensorsinfo,
+#custom-spotify,
+#taskbar,
+#custom-theme,
+#tray,
+#custom-updates,
+#custom-wallchange,
+#custom-wbar,
+#custom-weather,
+#window,
+#workspaces,
+#custom-l_end,
+#custom-r_end,
+#custom-sl_end,
+#custom-sr_end,
+#custom-rl_end,
+#custom-rr_end {
+    color: white;
+    background: @module-bg;
+    opacity: 1;
+    margin: 1px 0;
+    border-radius: 0;
+    padding: 0 4px;
+}
+
+#waybar .module:hover {
+    background: @module-bg-hover;
+}
+
+#network#details {
+}
+
+/************ CUSTOM MODULE END CAPS ************/
+#custom-l_end {
+    border-radius: 12px 0 0 12px;
+    margin-left: 8px;
+}
+
+#custom-r_end {
+    border-radius: 0 12px 12px 0;
+    margin-right: 8px;
+}
+
+#custom-sl_end,
+#custom-sr_end {
+    border-radius: 0;
+}
+
+#custom-sl_end {
+    margin-left: 8px;
+}
+
+#custom-sr_end {
+    margin-right: 8px;
+}
+
+#custom-rl_end {
+    border-radius: 10px 0 0 10px;
+    margin-left: 8px;
+}
+
+#custom-rr_end {
+    border-radius: 0 10px 10px 0;
+    margin-right: 8px;
+}
+
+#custom-mutebattery{
+}
+
+
+
+
+#custom-wakawatch.alive { color: #a6e3a1; }  /* green */
+#custom-wakawatch.idle  { color: #f38ba8; }  /* red-ish */

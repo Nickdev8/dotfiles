@@ -1,0 +1,8 @@
+# OS/editor
+.DS_Store
+*.swp
+*.swo
+*~
+
+# Shell runtime state
+.config/fish/fish_variables
