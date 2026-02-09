@@ -1,0 +1,107 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+import time
+import os
+
+# --- Config ---
+VOL_STEP = 5      # percent
+BRI_STEP = 5      # percent
+OVERLAY_IMAGE = os.path.expanduser("~/.dotfiles/assets/fkeys/cinama.png")
+OVERLAY_SOUND = os.path.expanduser("~/.dotfiles/assets/fkeys/vine-boom.mp3")
+OVERLAY_SECONDS = 2.0
+
+# --- Helpers ---
+def run(cmd):
+    try:
+        subprocess.run(cmd, check=True)
+    except FileNotFoundError:
+        print(f"Error: command not found: {cmd[0]}")
+    except subprocess.CalledProcessError as e:
+        print(f"Command failed: {' '.join(cmd)} -> {e}")
+
+def mpv_fullscreen_show(image_path, seconds=1.0, sound_path=None, sound_volume=100):
+    if not os.path.exists(image_path):
+        print(f"Image not found: {image_path}")
+        return
+    try:
+        # Start image fullscreen
+        image_proc = subprocess.Popen([
+            "mpv",
+            "--fullscreen",
+            "--no-osc",
+            "--input-conf=/dev/null",  # disable keybindings
+            "--loop=inf",
+            "--really-quiet",
+            image_path
+        ])
+        # Optionally start sound
+        sound_proc = None
+        if sound_path and os.path.exists(sound_path):
+            sound_proc = subprocess.Popen([
+                "mpv",
+                "--no-video",
+                "--really-quiet",
+                f"--volume={sound_volume}",  # <--- ADDED THIS
+                
+                sound_path
+            ])
+        time.sleep(seconds)
+        image_proc.terminate()
+        if sound_proc:
+            # Give mpv time to exit gracefully, kill if still running
+            try:
+                sound_proc.wait(timeout=0.2)
+            except subprocess.TimeoutExpired:
+                sound_proc.terminate()
+    except FileNotFoundError:
+        print("Error: mpv not installed. Install with: sudo pacman -S mpv")
+    except Exception as e:
+        print(f"mpv error: {e}")
+
+# --- Button functions ---
+def button1():
+    """Mute toggle"""
+    run(["wpctl", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle"])
+
+def button2():
+    """Volume down"""
+    run(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", f"{VOL_STEP}%-"])
+
+def button3():
+    """Volume up"""
+    run(["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", f"{VOL_STEP}%+"])
+
+def button4():
+    """Brightness down"""
+    run(["brightnessctl", "set", f"{BRI_STEP}%-"])
+
+def button5():
+    """Brightness up"""
+    run(["brightnessctl", "set", f"+{BRI_STEP}%"])
+
+def button12():
+    """Show image overlay + play sound"""
+    mpv_fullscreen_show(OVERLAY_IMAGE, OVERLAY_SECONDS, OVERLAY_SOUND, sound_volume=150)
+
+def button_unknown(n):
+    print(f"No function assigned to button {n}")
+
+# --- Map buttons ---
+buttons = {
+    "1": button1,
+    "2": button2,
+    "3": button3,
+    "4": button4,
+    "5": button5,
+    "12": button12,
+}
+
+# --- Entry point ---
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: fkeys <button_number>")
+        sys.exit(1)
+
+    btn = sys.argv[1]
+    buttons.get(btn, lambda: button_unknown(btn))()

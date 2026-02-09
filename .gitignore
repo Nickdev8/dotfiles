@@ -4,4 +4,8 @@
 *.swo
 *~
 
+# Python cache
+__pycache__/
+*.pyc
+
 # Shell runtime state

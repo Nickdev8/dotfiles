@@ -1,0 +1,5 @@
+# Browser used by keybinds
+google-chrome
+
+# VS Code marketplace integration for Arch package `code`
+code-marketplace

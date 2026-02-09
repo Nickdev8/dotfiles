@@ -1,0 +1,58 @@
+# Core compositor / WM
+hyprland
+hyprlock
+hyprpaper
+waybar
+xdg-desktop-portal-hyprland
+
+# Launchers / shell / terminal
+fish
+wofi
+rofi
+alacritty
+kitty
+thunar
+
+# Audio / bluetooth / power
+pipewire
+wireplumber
+pavucontrol
+bluez
+bluez-utils
+blueman
+power-profiles-daemon
+playerctl
+
+# Notifications / policy / network
+libnotify
+dunst
+polkit-gnome
+lxqt-policykit
+network-manager-applet
+kdeconnect
+
+# Screenshots / clipboard / brightness
+grim
+slurp
+wl-clipboard
+brightnessctl
+swww
+
+# i3 profile (optional but included in this repo)
+i3-wm
+i3blocks
+
+# Tooling used by scripts
+python
+python-requests
+jq
+curl
+wget
+mpv
+xorg-xhost
+
+# Fonts / look
+ttf-jetbrains-mono-nerd
+nwg-look
+arc-gtk-theme-eos
+eos-qogir-icons
